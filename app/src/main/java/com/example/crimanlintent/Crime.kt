@@ -67,7 +67,9 @@ class CrimeFragment: Fragment() {
         ){
             crime.title= sequence.toString()
         }
-        override fun afterTextChanged(sequence:Editable?)
+        override fun afterTextChanged(sequence:Editable?){
+
+        }
 
         TitleFiled.addTextChangedListener(TitleWatcher)
         solvedCheckBox.apply {
