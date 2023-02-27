@@ -58,7 +58,8 @@ class CrimeFragment: Fragment() {
             count:Int,
             after:Int
                 ){
-                }
+
+        }
         override fun onTextChanged(
             sequence: CharSequence?,
             start:Int,
