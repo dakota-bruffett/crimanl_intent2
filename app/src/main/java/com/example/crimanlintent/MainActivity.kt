@@ -10,7 +10,7 @@ class MainActivity : AppCompatActivity() {
         val currentFragment =
             supportFragmentManager.findFragmentById(R.id.fragment_container_view_tag)
         if (currentFragment == null) {
-            val fragment == CrimeFragment()
+            val fragment = crimeListFragment.newInstance()
             supportFragmentManager
                 .beginTransaction()
                 .add(R.id.fragment_container_view_tag,fragment)
