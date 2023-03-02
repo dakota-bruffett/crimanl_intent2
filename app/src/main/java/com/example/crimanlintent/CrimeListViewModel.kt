@@ -2,8 +2,8 @@ package com.example.crimanlintent
 
 import androidx.lifecycle.ViewModel
 
-class CrimeViewModel: ViewModel() {
-    var crimes = mutableListOf<Crimes>()
+class CrimeListViewModel: ViewModel() {
+    var crimes = mutableListOf<Crime>()
     init {
         for(i in 0 until 100){
             val crime = Crime()
