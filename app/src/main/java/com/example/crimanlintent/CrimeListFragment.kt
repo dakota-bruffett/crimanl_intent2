@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -18,6 +19,7 @@ private const val TAG = "CrimeListFragment"
 class CrimeListFragment: Fragment() {
     private lateinit var CrimeRecylerView: RecyclerView
     private var adaptor: CrimeAdaptor? = null
+    private var solvedImageView : ImageView = itemView.findViewbyId(R.id.imageView)
     private val CrimeViewModel: CrimeListViewModel by lazy {
         ViewModelProviders.of(this).get(CrimeListViewModel::class.java)
     }
@@ -71,6 +73,11 @@ class CrimeListFragment: Fragment() {
             this.crime = crime
             titleTextView.text = this.crime.title
             dateTextView.text = this.crime.date.toString()
+            solvedImageView.visibility = if(crime.isSolved){
+                View.VISIBLE
+            }else{
+                View.GONE
+            }
         }
 
         override fun onClick(v: View) {
