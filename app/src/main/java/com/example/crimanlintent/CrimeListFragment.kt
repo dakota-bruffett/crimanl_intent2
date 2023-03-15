@@ -19,7 +19,7 @@ private const val TAG = "CrimeListFragment"
 class CrimeListFragment: Fragment() {
     private lateinit var CrimeRecylerView: RecyclerView
     private var adaptor: CrimeAdaptor? = null
-    private var solvedImageView : ImageView = itemView.findViewbyId(R.id.imageView)
+
     private val CrimeViewModel: CrimeListViewModel by lazy {
         ViewModelProviders.of(this).get(CrimeListViewModel::class.java)
     }
@@ -63,7 +63,7 @@ class CrimeListFragment: Fragment() {
         private lateinit var crime: Crime
         val titleTextView: TextView = itemView.findViewById(R.id.CrimeTitle)
         val dateTextView: TextView = itemView.findViewById(R.id.crimeDate)
-
+        private val solvedImageView : ImageView = itemView.findViewById(R.id.crime_solved)
         init {
             itemView.setOnClickListener(this)
 
