@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +19,7 @@ private const val TAG = "CrimeListFragment"
 
 class CrimeListFragment: Fragment() {
     private lateinit var CrimeRecylerView: RecyclerView
-    private var adaptor: CrimeAdaptor? = null
+    private var adaptor: CrimeAdaptor? = CrimeAdaptor(emptyList())
 
     private val CrimeViewModel: CrimeListViewModel by lazy {
         ViewModelProviders.of(this).get(CrimeListViewModel::class.java)
@@ -38,14 +39,25 @@ class CrimeListFragment: Fragment() {
         CrimeRecylerView =
             view.findViewById(R.id.Crime_recycle_view,) as RecyclerView
         CrimeRecylerView.layoutManager = LinearLayoutManager(context)
-        updateUI()
+        CrimeRecylerView.adapter = adaptor
         return view
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        CrimeListViewModel.CrimeListLiveData.observe(
+            viewLifecycleOwner,
+            Observer { crimes ->
+                crimes?.let {
+                    Log.i(TAG."Got Crime ${crimes.size}")
+                    updateUI(crimes)
+                }
+            }
+        )
+    }
 
-    private fun updateUI() {
 
-        val crimes = CrimeViewModel.crimes
+    private fun updateUI(crimes: List<Crime>) {
         adaptor = CrimeAdaptor(crimes)
         CrimeRecylerView.adapter = adaptor
     }
@@ -57,13 +69,15 @@ class CrimeListFragment: Fragment() {
         }
 
     }
+
     private inner class CrimeHolder(view: View) : RecyclerView.ViewHolder(view),
         View.OnClickListener {
 
         private lateinit var crime: Crime
         val titleTextView: TextView = itemView.findViewById(R.id.CrimeTitle)
         val dateTextView: TextView = itemView.findViewById(R.id.crimeDate)
-        private val solvedImageView : ImageView = itemView.findViewById(R.id.crime_solved)
+        private val solvedImageView: ImageView = itemView.findViewById(R.id.crime_solved)
+
         init {
             itemView.setOnClickListener(this)
 
@@ -73,9 +87,9 @@ class CrimeListFragment: Fragment() {
             this.crime = crime
             titleTextView.text = this.crime.title
             dateTextView.text = this.crime.date.toString()
-            solvedImageView.visibility = if(crime.isSolved){
+            solvedImageView.visibility = if (crime.isSolved) {
                 View.VISIBLE
-            }else{
+            } else {
                 View.GONE
             }
         }
@@ -88,23 +102,23 @@ class CrimeListFragment: Fragment() {
 
     }
 
-        private inner class CrimeAdaptor(var crimes: List<Crime>) :
-            RecyclerView.Adapter<CrimeHolder>() {
-            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CrimeHolder {
-                val view = layoutInflater.inflate(R.layout.activity_crimes, parent, false)
-                return CrimeHolder(view)
-            }
+    private inner class CrimeAdaptor(var crimes: List<Crime>) :
+        RecyclerView.Adapter<CrimeHolder>() {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CrimeHolder {
+            val view = layoutInflater.inflate(R.layout.activity_crimes, parent, false)
+            return CrimeHolder(view)
+        }
 
 
-            override fun getItemCount() = crimes.size
-            override fun onBindViewHolder(holder: CrimeHolder, position: Int) {
-                val crime = crimes[position]
-                holder.apply {
-                    holder.bind(crime)
-                }
-
+        override fun getItemCount() = crimes.size
+        override fun onBindViewHolder(holder: CrimeHolder, position: Int) {
+            val crime = crimes[position]
+            holder.apply {
+                holder.bind(crime)
             }
 
         }
+
+    }
 
 }
