@@ -1,9 +1,10 @@
 package com.example.crimanlintent
 
+import androidx.room.TypeConverter
 import java.util.Date
 import java.util.UUID
 
-class TypeConverters {
+class CrimeTypeConverters {
     @TypeConverter
     fun toDate(date: Date?): Long?{
         return date?.time

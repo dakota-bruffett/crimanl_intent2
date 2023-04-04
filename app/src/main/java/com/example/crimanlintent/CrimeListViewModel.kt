@@ -5,5 +5,5 @@ import androidx.lifecycle.ViewModel
 class CrimeListViewModel: ViewModel() {
 
     private val crimeRespository = CrimeRespository.get()
-    val crimeLiveData = CrimeRespository.getCrimes()
+    val crimeListLiveData = crimeRespository.getCrimes()
 }

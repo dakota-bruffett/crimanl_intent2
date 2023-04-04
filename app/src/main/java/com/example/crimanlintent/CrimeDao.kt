@@ -1,6 +1,8 @@
 package com.example.crimanlintent
 
 import androidx.lifecycle.LiveData
+import androidx.room.Dao
+import androidx.room.Query
 import java.util.*
 
 @Dao
