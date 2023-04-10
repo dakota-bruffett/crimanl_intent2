@@ -5,16 +5,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowId
 import android.widget.*
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.crimanlintent.*
+import java.util.*
+
 private lateinit var crime: Crime
 
-private const val TAG = "CrimeListFragment"
-
+private const val TAG = "CrimeFragment"
+private const val ARG_CRIME_ID = "crime_id"
 class CrimeFragment: Fragment() {
 
     private lateinit var TitleFiled: EditText
@@ -24,7 +28,9 @@ class CrimeFragment: Fragment() {
 
         super.onCreate(savedInstanceState)
         crime = Crime()
-
+        val crimeID: UUID = arguments?.getSerializable(ARG_CRIME_ID)as UUID
+        Log.d(TAG, "args bundle crime ID:$crimeID")
+        //crime from data base
     }
 
     override fun onCreateView(
@@ -54,8 +60,8 @@ class CrimeFragment: Fragment() {
                 count: Int,
                 after: Int
             ) {
-
             }
+
 
             override fun onTextChanged(
                 sequence: CharSequence?,
@@ -78,7 +84,14 @@ class CrimeFragment: Fragment() {
             //code for overrides and the amount of  for text changes
         }
     }
-
-
+    companion object
+    fun newInstance(crimeId:UUID): CrimeFragment{
+        val args = Bundle().apply {
+            putSerializable(ARG_CRIME_ID,crimeId)
+        }
+        return CrimeFragment().apply {
+            arguments = args
+        }
+    }
 
 }
