@@ -44,8 +44,8 @@
 
     <Button
         android:id="@+id/crimeDate"
-        android:layout_width="335dp"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/checkBox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -81,8 +81,8 @@
         android:id="@+id/Crime_Suspect"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="141dp"
-        android:layout_marginBottom="332dp"
+        android:layout_marginEnd="140dp"
+        android:layout_marginBottom="304dp"
         android:text="@string/Crime_Suspect_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -92,7 +92,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="204dp"
-        android:layout_marginBottom="271dp"
+        android:layout_marginBottom="232dp"
         android:text="@string/Crime_report_Text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

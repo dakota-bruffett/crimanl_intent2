@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowId
 import android.widget.*
+import androidx.lifecycle.Observer
 import android.text.format.DateFormat
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
@@ -107,7 +108,7 @@ class CrimeFragment: Fragment(),DatePickerFragment.Callbacks {
         super.onViewCreated(view, savedInstanceState)
         crimeDetailViewModel.crimeLiveData.observe(
             viewLifecycleOwner,
-            androidx.lifecycle.Observer { crime->
+            Observer { crime->
                 crime?.let {
                     this.crime=crime
                     updateUI()
