@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/New_crime"
-        android:icon= "@drawable/ic_launcher_background"
+        android:icon="@android:drawable/ic_input_add"
         android:title="@string/New_crime_show"
-        app:showAsAction= "ifRoom|withText">
-        
+        app:showAsAction="ifRoom|withText">
+
     </item>
 
 </menu>

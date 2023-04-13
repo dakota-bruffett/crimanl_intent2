@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onCrimeSelected(crimeId: UUID){
-        val fragment = CrimeFragment.newInstance(crimeId)
+        val fragment = CrimeFragment()
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragment_container_view_tag,fragment)

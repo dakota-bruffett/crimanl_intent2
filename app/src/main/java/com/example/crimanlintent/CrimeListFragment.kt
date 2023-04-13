@@ -35,6 +35,7 @@ class CrimeListFragment: Fragment() {
         callbacks = context as Callbacks?
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "Total Crimes: $ {CrimeViewModel.crimes.size}")
@@ -140,5 +141,19 @@ class CrimeListFragment: Fragment() {
         inflater.inflate(R.menu.fragment__crime_list,menu)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId){
+            R.id.New_crime -> {
+                val crime = Crime()
+                callbacks?.onCrimeSelected(crime.id)
+                true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
+    }
+    override fun onCreate(savedInstanceState: Bundle?){
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
 }

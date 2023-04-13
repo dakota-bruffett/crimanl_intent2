@@ -5,6 +5,7 @@ import android.content.LocusId
 import androidx.lifecycle.LiveData
 import androidx.room.Room
 import java.util.UUID
+import java.util.concurrent.Executors
 
 private const val DATABASE_NAME="crime-database"
 
@@ -14,11 +15,25 @@ class CrimeRespository private constructor(context: Context){
         context.applicationContext,
         CrimeDatabase::class.java,
         DATABASE_NAME
-    ).build()
+    ).addMigrations(migration_1_2)
+        .build()
     private val crimeDao = database.crimeDao()
+    private val executor = Executors.newSingleThreadExecutor()
 
     fun getCrimes(): LiveData<List<Crime>> = crimeDao.getCrimes()
     fun getCrime(id: UUID): LiveData<Crime?> = crimeDao.getCrime(id)
+
+    fun updateCrime(crime: Crime){
+        executor.execute{
+            crimeDao.addCrime(crime)
+        }
+
+    }
+    fun addCrime(crime: Crime){
+        executor.execute{
+            crimeDao.addCrime(crime)
+        }
+    }
 
     companion object{
         private var INSTANCE:CrimeRespository? = null
