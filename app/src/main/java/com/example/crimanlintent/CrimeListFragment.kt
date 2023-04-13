@@ -39,6 +39,7 @@ class CrimeListFragment: Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "Total Crimes: $ {CrimeViewModel.crimes.size}")
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
@@ -150,10 +151,6 @@ class CrimeListFragment: Fragment() {
             }
             else -> return super.onOptionsItemSelected(item)
         }
-    }
-    override fun onCreate(savedInstanceState: Bundle?){
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
     }
 
 }

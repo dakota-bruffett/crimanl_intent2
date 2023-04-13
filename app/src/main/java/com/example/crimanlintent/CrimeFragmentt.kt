@@ -27,7 +27,7 @@ import com.example.crimanlintent.*
 import java.net.URI
 import java.util.*
 
-private lateinit var crime: Crime
+
 
 private const val TAG = "CrimeFragment"
 private const val ARG_CRIME_ID = "crime_id"
@@ -36,7 +36,7 @@ private const val REQUEST_DATE = 0
 private const val REQUEST_CONTACT = 1
 private const val DATE_FORMAT = "EEE, MM, dd"
 class CrimeFragment: Fragment(),DatePickerFragment.Callbacks {
-
+    private lateinit var crime: Crime
     private lateinit var TitleFiled: EditText
     private lateinit var dateButton: Button
     private lateinit var solvedCheckBox: CheckBox
@@ -108,9 +108,9 @@ class CrimeFragment: Fragment(),DatePickerFragment.Callbacks {
         super.onViewCreated(view, savedInstanceState)
         crimeDetailViewModel.crimeLiveData.observe(
             viewLifecycleOwner,
-            Observer { crime->
+            Observer { crime-> //this crime is the global crime variable is defined at
                 crime?.let {
-                    this.crime=crime
+                    this.crime=crime // the crime is the new crime
                     updateUI()
                 }
             }// the on view lifecycle crime tracker model
