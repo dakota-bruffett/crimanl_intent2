@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowId
 import android.widget.*
+import android.text.format.DateFormat
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -23,7 +24,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.crimanlintent.*
 import java.net.URI
-import java.text.DateFormat
 import java.util.*
 
 private lateinit var crime: Crime
@@ -99,6 +99,7 @@ class CrimeFragment: Fragment(),DatePickerFragment.Callbacks {
         solvedCheckBox = view.findViewById(R.id.checkBox) as CheckBox
         return view
         // the create view code
+        // update here is our buttons and text codes are listed above
 
     }
 
@@ -111,7 +112,7 @@ class CrimeFragment: Fragment(),DatePickerFragment.Callbacks {
                     this.crime=crime
                     updateUI()
                 }
-            }
+            }// the on view lifecycle crime tracker model
         )
     }override fun onStop(){
         super.onStop()
@@ -153,7 +154,7 @@ class CrimeFragment: Fragment(),DatePickerFragment.Callbacks {
                     crime.suspect = suspect
                     crimeDetailViewModel.saveCrime(crime)
                     suspectButton.text = suspect
-                }
+                }// to make one our intent code work for the the application while using Uri
             }
         }
 
@@ -172,7 +173,7 @@ class CrimeFragment: Fragment(),DatePickerFragment.Callbacks {
             getString(R.string.Crime_Suspect,crime.suspect)
         }
         return getString(R.string.Crime_report,crime.title,dateString,solvedString,suspect)
-    }
+    }// the format of getting a crime report
 
 
 

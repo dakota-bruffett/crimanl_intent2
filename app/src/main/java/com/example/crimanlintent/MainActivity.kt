@@ -31,5 +31,6 @@ class MainActivity : AppCompatActivity(),
             .replace(R.id.fragment_container_view_tag,fragment)
             .addToBackStack(null)
             .commit()
+        // updated main activity and our support fragments are made
     }
 }
