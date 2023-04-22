@@ -2,6 +2,7 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
@@ -152,9 +153,23 @@ class CrimeFragment: Fragment(),DatePickerFragment.Callbacks {
                 }
             }// the on view lifecycle crime tracker model
         )
-    }override fun onStop(){
+    }
+    private fun updatePhotoview(){
+        if (photoFile.exists()){
+            val bitmap = getScaledBitMap(photoFile.path,requireActivity())
+            photoView.setImageBitmap(bitmap)
+        }else{
+            photoView.setImageDrawable(null)
+        }
+    }
+    override fun onStop(){
         super.onStop()
         crimeDetailViewModel.saveCrime(crime)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        requireActivity().revokeUriPermission(photoUri,Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
     }
 
     override fun onDateSelectedDates(date: Date) {
@@ -172,12 +187,17 @@ class CrimeFragment: Fragment(),DatePickerFragment.Callbacks {
         if(crime.suspect.isNotEmpty()){
             suspectButton.text= crime.suspect
         }
+        updatePhotoview()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when {
             resultCode != Activity.RESULT_OK -> return
-            requestCode == REQUEST_CONTACT && data !=null ->{
+            requestCode == REQUEST_CONTACT && data !=null ->
+            requestCode == REQUEST_PHOTO -> {
+
+            requireActivity().revokeUriPermission(photoUri,Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+            updatePhotoview()
                 val contactUri: Uri? = data.data
                 val queryFields = arrayOf(ContactsContract.Contacts.DISPLAY_NAME)
                 val cursor = contactUri?.let {

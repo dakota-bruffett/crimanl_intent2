@@ -7,7 +7,7 @@ import android.graphics.Point
 import java.nio.file.Path
 
 class picturesutils {
-    fun getScaledBitMap(path: String,activity: Activity) {
+    fun getscaledBitMap(path: String,activity: Activity) {
         val size = Point()
         activity.windowManager.defaultDisplay.getSize(size)
         return  getScaledBitMap(path, size.x, size.y)
